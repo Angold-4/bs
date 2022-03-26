@@ -22,6 +22,7 @@ _main:                                  ## @main
 	movl	$10, (%rax)
 	movq	-80(%rbp), %rax
 	movl	(%rax), %esi
+
 	leaq	L_.str(%rip), %rdi
 	movb	$0, %al
 	callq	_printf
