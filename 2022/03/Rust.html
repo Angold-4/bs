@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+<h1>The Rust Programming Language</h1>
+<h5>Angold Wang | 2022-03-24</h5>
+<h2>1. Why Rust?</h2>
+<h4>&quot;Safe System Performance Programming&quot;</h4>
+<ul>
+<li><strong>System Programming Language:</strong> <em>C, C++</em>.</li>
+<li><strong>Safe Programming Language:</strong> <em>ML, Haskell, Java</em></li>
+</ul>
+<p><strong>Mozilla trying to blend the best of both of these languages</strong>.</p>
+<h4>Why is Mozilla interested in creating a new programming language?</h4>
+<ul>
+<li>Mozilla is the organization that created the Firefox web browser, current written in <em>C++</em>.</li>
+<li><strong>Web browsers need a high degree of control over the machine</strong>.
+<ul>
+<li>Doing very complex tasks very quickly (all these tabs running simultaneously)</li>
+</ul>
+</li>
+<li><strong>Web browsers need safety</strong>
+<ul>
+<li>Running untrusted code, which is been downloaded from internet.</li>
+</ul>
+</li>
+<li><strong>Languages like <em>C/C++</em> that give you the kind of control you need in order to get the performance, but also leave you open to all kinds of security vulnerabilities.</strong></li>
+<li>Mozilla want to build the next generation web browser, which is a project called <em><a href="https://github.com/servo/servo">servo</a></em>. And they wants to do it in a new language that tries to do better at giving you both <strong>control</strong> and <strong>safety</strong> at the same time.</li>
+</ul>
+<h2>2. Control - Case study: Zero-Cost Abstraction in C / C++</h2>
+<p>C and C++ is sort of the best existing language in this respect (control).</p>
+<h3>i. Memory Allocation</h3>
+<p><img src="Sources/memlayout.png" alt="memlayout"></p>
+<p>Basically, there are <strong>four</strong> places in Memory for C/C++ program to store data.</p>
+<h4>1. Stack</h4>
+<p><strong>Most of the temporary variables created at runtime are stored in the stack. They are created (push) when the corresponding procedure is called and destroyed (pop) when returns.</strong></p>
+<p>Consider the following C code snippet:</p>
+<pre><code class="language-c">char s[] = &quot;abc&quot;; // {'a', 'b', 'c', 'd', '\n'}
+char t[3] = &quot;def&quot;;
+
+printf(&quot;s: %s\n&quot;, s);
+printf(&quot;t: %s\n&quot;, t);
+</code></pre>
+<p>The output of this process looks strange:</p>
+<pre><code>s: abc
+t: defabc
+</code></pre>
+<p>After check the generated assembly code in <strong><a href="./src/char.s">char.s</a></strong>, It is easy to figure out why <strong><code>t</code></strong> becomes <strong><code>defabc</code></strong>.</p>
+<p><strong>Since <code>printf</code> only stops looking for the next byte when encounters <code>\0</code> (terminator).</strong> If we do not define the variable with the correct format and size, because these temp data are stored in the stack, sometimes it will cause some unexpected errors.</p>
+<p><img src="Sources/stack.png" alt="stack"></p>
+<h4>2. Text</h4>
+<p><strong>The Text segment has <code>e</code> bit enabled, the compiler generate program instructions in this segment. And this segment also hardcodes all &quot;strings&quot; that was defined inside the function.</strong></p>
+<pre><code class="language-asm">	.section	__TEXT,__cstring,cstring_literals
+L___const.main.s:                       ## @__const.main.s
+	.asciz	&quot;abc&quot;
+
+	.section	__TEXT,__const
+l___const.main.t:                       ## @__const.main.t
+	.ascii	&quot;def&quot;
+</code></pre>
+<h4>3. Heap</h4>
+<p><strong>In C, the <code>malloc()</code> function will allocate a memory in Heap, and then return the begin address of that chunk of new memory.</strong></p>
+<pre><code class="language-c">char *p = malloc(6*sizeof(char));
+strcpy(p, &quot;strcpy&quot;);
+printf(&quot;p: %s\n&quot;, p); // strcpy
+</code></pre>
+<p><img src="Sources/heap.png" alt="heap"></p>
+<h4>4. Data</h4>
+<p><strong>The Data segment contains global data. Which can be accessed from all functions in the current program.</strong></p>
+<pre><code class="language-asm">	.section	__DATA,__data
+	.globl	_data                           ## @data
+	.p2align	2
+_data:
+	.long	12345                           ## 0x3039
+
+</code></pre>
+<h3>ii. Calling Conventions</h3>
+<p><strong>The calling conventions describes the interface of the called code.</strong> Which makes the caller code can find what they wants (arguments, return address, fp ,etc.)</p>
+<p><img src="Sources/CC.png" alt="CC"></p>
+<p>There are two kinds of the registers in <strong>Calling Conventions:</strong> caller and callee saved.</p>
+<h4>Caller-Saved Registers</h4>
+<p><strong>Not preserved across the call.</strong> These are scratch registers - the callee is allowed to scribble over them. <strong>So if the caller cares about their contents, the caller must save them into stack before make the call.</strong></p>
+<h4>Callee-Saved Registers</h4>
+<p><strong>Preserved across the call.</strong> If the callee uses them, then the callee must restore the original values before returning.</p>
+<h4>Usage of <code>%fp / %rbp</code></h4>
+<p>Except for addressing variables in stack, the frame pointer (also called base pointer) are also used in <strong>Back Trace.</strong> Which can print the <strong>calling stack</strong> during the fn calling conventions</p>
+<pre><code class="language-c">void
+backtrace(void) {
+    uint64 cur_fp = r_fp();
+
+    while (cur_fp != PGROUNDDOWN(cur_fp)) {   // Page top
+	printf(&quot;%p\n&quot;, *(uint64 *)(cur_fp - 8));  // the return address
+	cur_fp = *(uint64 *)(cur_fp - 16);        // next frame begin
+    }
+}
+
+</code></pre>
+<h3>iii. Zero-Cost Abstraction</h3>
+<p>When we say <strong>&quot;Control&quot;</strong> in programming language, it usually means <strong>&quot;How much control we can get over the machine?&quot;</strong></p>
+<p>For example, like what I mentioned earlier. If you declare a <code>vector</code> in C++ and you've read the <code>STL</code> code. You'll know exactly how that is going to be laid out in terms of the memory.</p>
+<pre><code class="language-c">vector&lt;int&gt; vec;
+auto&amp; elem = vec[0];
+</code></pre>
+<p>In particular, in this code snipper. There are some field of the vector, including a pointer to the actuall data in the heap and some metadata about it, that all live on the stack. And you can have a lot of controls over the layout if you want.</p>
+<p><img src="Sources/stlvec.png" alt="stlvec"></p>
+<p>One of the principles that you get out of C++ is something often called <strong>&quot;Zero-cost abstraction&quot;.</strong> Which means you can build libraries like <code>vector</code> or <code>string</code> that are reasonably convinence to use (they give you nice abstraction). <strong>But if you compile it down. It is nothing different than you could have written by hand in assembly.</strong></p>
+<h4>You're not giving up any performance in doing this abstraction</h4>
+	</section>
+	</div>
+    </div>
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>
