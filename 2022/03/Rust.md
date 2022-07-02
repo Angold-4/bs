@@ -144,3 +144,60 @@ In particular, in this code snipper. There are some field of the vector, includi
 One of the principles that you get out of C++ is something often called **"Zero-cost abstraction".** Which means you can build libraries like `vector` or `string` that are reasonably convinence to use (they give you nice abstraction). **But if you compile it down. It is nothing different than you could have written by hand in assembly.** 
 
 #### You're not giving up any performance in doing this abstraction
+
+
+## 3. Design Patten
+
+Here I'll show some design choices/pattens in Rust: Based on the book 《The Rust Programming Language》
+
+### 0. Compiler Errors
+In Rust, compiler errors can be frustrating and occur frequently, but really they only mean your program isn’t safely doing what you want it to do yet; they do not mean that you’re not a good programmer! Experienced Rustaceans still get compiler errors.
+
+
+### 1. Mutability
+
+**By default variables are immutable.** It’s important that we get compile-time errors when we attempt to change a value that’s designated as immutable because this very situation can lead to bugs.
+
+If one part of our code operates on the assumption that a value will never change and another part of our code changes that value, it’s possible that the first part of the code won’t do what it was designed to do. The cause of this kind of bug can be difficult to track down after the fact, **especially when the second piece of code changes the value only sometimes.**
+
+#### Shadowing
+
+```rust
+fn main() {
+    let x = 5;
+
+    let x = x + 1;
+
+    {
+        let x = x * 2;
+        println!("The value of x in the inner scope is: {x}");
+    }
+
+    println!("The value of x is: {x}");
+}
+```
+
+The first variable `x` is **shadowed** by the second, means that the second variable is what the compiler will see when you use the name of the variable in the inner scope. As a concequence:
+1. We do not need to make a new temporary variable name (e.g., y) to use, we can reuse the same name efficiently.
+2. By using `let`, we can perform a few operations on a value but have the variable immutable after those ops have been completed.
+
+```
+$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
+     Running `target/debug/variables`
+The value of x in the inner scope is: 12
+The value of x is: 6
+```
+
+
+
+
+
+
+
+
+
+
+
+
