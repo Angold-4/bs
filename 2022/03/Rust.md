@@ -190,6 +190,30 @@ The value of x in the inner scope is: 12
 The value of x is: 6
 ```
 
+### 2. Statements and Expressions
+
+* **Statements** are instructions that perform some action and do not return a value.
+* **Expressions** evaluate to a resulting value.
+
+Expressions evaluate to a value and make up most of the rest of the code that you’ll write in Rust.
+
+```rust
+fn main() {
+    let y = {
+        let x = 3;
+        x + 1
+    };
+
+    println!("The value of y is: {y}");
+}
+```
+
+The block is an expression, in this case, evaluates to `4`. That value gets bound to `y` as part of the let statement. Note that the `x + 1` line doesn’t have a semicolon at the end, unlike most of the lines you’ve seen so far. **Expressions do not include ending semicolons**. If you add a semicolon to the end of an expression, you turn it into a statement, and it will then not return a value.
+
+In Rust, the return value of the function is synonymous with the value of the final expression in the block of the body of a function.
+
+
+
 
 
 
