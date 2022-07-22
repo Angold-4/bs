@@ -6,8 +6,9 @@
 int data = 12345;
  
 int main() {
-    char s[] = "abc"; // {'a', 'b', 'c', 'd', '\n'}
+    char s[] = "abc"; // {'a', 'b', 'c', '\0'}
     char t[3] = "def";
+
     char *p = malloc(6*sizeof(char));
 
     strcpy(p, "strcpy");

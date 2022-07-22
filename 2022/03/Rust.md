@@ -213,6 +213,22 @@ The block is an expression, in this case, evaluates to `4`. That value gets boun
 In Rust, the return value of the function is synonymous with the value of the final expression in the block of the body of a function.
 
 
+### 3. Ownership
+
+Ownership is a set of rules that governs how a Rust program manages memory. All programs have to manage the way they use a computer’s memory while running.
+
+In general, there are three ways for programming language to free the unused memory:
+
+1. **Explicitly allocate and free the memory.** (e.g,. C, C++)
+2. **Using Garbage Collector that regularly looks for no-longer used memory as the program runs** (e.g,. Java, Go)
+3. **Memory is managed through a system of ownership with a set of rules that the compiler checks. If all rules were followed, the code will be compiled successfully, and the compiler will help you do the deallocation automatically** (e.g,. Rust)
+
+Genearally, In the first approach, it’s our responsibility to identify when memory is no longer being used and call code to explicitly free it, just as we did to request it. Doing this correctly has historically been a difficult programming problem. **If we forget, we’ll waste memory. If we do it too early, we’ll have an invalid variable. If we do it twice, that’s a bug too. We need to pair exactly one allocate with exactly one free.**
+
+In the second approach, we do not need to think about the memory stuff, just keep creating the variables in the heap, and the Garbage Collector (GC) will help us to cleans up the memory that isn't being used anymore. The GC usually runs aside our program, and will slow it down due to the limited computer resources.
+
+In Rust, the third approach, if we obey the rules of ownership and make the program compiled, **none of the features of ownership will slow down your program while it’s running, and you won't gain any both potential bugs and unreleased unused memory.**
+
 
 
 
