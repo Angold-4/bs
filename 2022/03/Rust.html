@@ -170,6 +170,67 @@ auto&amp; elem = vec[0];
 <p><img src="Sources/stlvec.png" alt="stlvec"></p>
 <p>One of the principles that you get out of C++ is something often called <strong>&quot;Zero-cost abstraction&quot;.</strong> Which means you can build libraries like <code>vector</code> or <code>string</code> that are reasonably convinence to use (they give you nice abstraction). <strong>But if you compile it down. It is nothing different than you could have written by hand in assembly.</strong></p>
 <h4>You're not giving up any performance in doing this abstraction</h4>
+<h2>3. Design Patten</h2>
+<p>Here I'll show some design choices/pattens in Rust: Based on the book 《The Rust Programming Language》</p>
+<h3>0. Compiler Errors</h3>
+<p>In Rust, compiler errors can be frustrating and occur frequently, but really they only mean your program isn’t safely doing what you want it to do yet; they do not mean that you’re not a good programmer! Experienced Rustaceans still get compiler errors.</p>
+<h3>1. Mutability</h3>
+<p><strong>By default variables are immutable.</strong> It’s important that we get compile-time errors when we attempt to change a value that’s designated as immutable because this very situation can lead to bugs.</p>
+<p>If one part of our code operates on the assumption that a value will never change and another part of our code changes that value, it’s possible that the first part of the code won’t do what it was designed to do. The cause of this kind of bug can be difficult to track down after the fact, <strong>especially when the second piece of code changes the value only sometimes.</strong></p>
+<h4>Shadowing</h4>
+<pre><code class="language-rust">fn main() {
+    let x = 5;
+
+    let x = x + 1;
+
+    {
+        let x = x * 2;
+        println!(&quot;The value of x in the inner scope is: {x}&quot;);
+    }
+
+    println!(&quot;The value of x is: {x}&quot;);
+}
+</code></pre>
+<p>The first variable <code>x</code> is <strong>shadowed</strong> by the second, means that the second variable is what the compiler will see when you use the name of the variable in the inner scope. As a concequence:</p>
+<ol>
+<li>We do not need to make a new temporary variable name (e.g., y) to use, we can reuse the same name efficiently.</li>
+<li>By using <code>let</code>, we can perform a few operations on a value but have the variable immutable after those ops have been completed.</li>
+</ol>
+<pre><code>$ cargo run
+   Compiling variables v0.1.0 (file:///projects/variables)
+    Finished dev [unoptimized + debuginfo] target(s) in 0.31s
+     Running `target/debug/variables`
+The value of x in the inner scope is: 12
+The value of x is: 6
+</code></pre>
+<h3>2. Statements and Expressions</h3>
+<ul>
+<li><strong>Statements</strong> are instructions that perform some action and do not return a value.</li>
+<li><strong>Expressions</strong> evaluate to a resulting value.</li>
+</ul>
+<p>Expressions evaluate to a value and make up most of the rest of the code that you’ll write in Rust.</p>
+<pre><code class="language-rust">fn main() {
+    let y = {
+        let x = 3;
+        x + 1
+    };
+
+    println!(&quot;The value of y is: {y}&quot;);
+}
+</code></pre>
+<p>The block is an expression, in this case, evaluates to <code>4</code>. That value gets bound to <code>y</code> as part of the let statement. Note that the <code>x + 1</code> line doesn’t have a semicolon at the end, unlike most of the lines you’ve seen so far. <strong>Expressions do not include ending semicolons</strong>. If you add a semicolon to the end of an expression, you turn it into a statement, and it will then not return a value.</p>
+<p>In Rust, the return value of the function is synonymous with the value of the final expression in the block of the body of a function.</p>
+<h3>3. Ownership</h3>
+<p>Ownership is a set of rules that governs how a Rust program manages memory. All programs have to manage the way they use a computer’s memory while running.</p>
+<p>In general, there are three ways for programming language to free the unused memory:</p>
+<ol>
+<li><strong>Explicitly allocate and free the memory.</strong> (e.g,. C, C++)</li>
+<li><strong>Using Garbage Collector that regularly looks for no-longer used memory as the program runs</strong> (e.g,. Java, Go)</li>
+<li><strong>Memory is managed through a system of ownership with a set of rules that the compiler checks. If all rules were followed, the code will be compiled successfully, and the compiler will help you do the deallocation automatically</strong> (e.g,. Rust)</li>
+</ol>
+<p>Genearally, In the first approach, it’s our responsibility to identify when memory is no longer being used and call code to explicitly free it, just as we did to request it. Doing this correctly has historically been a difficult programming problem. <strong>If we forget, we’ll waste memory. If we do it too early, we’ll have an invalid variable. If we do it twice, that’s a bug too. We need to pair exactly one allocate with exactly one free.</strong></p>
+<p>In the second approach, we do not need to think about the memory stuff, just keep creating the variables in the heap, and the Garbage Collector (GC) will help us to cleans up the memory that isn't being used anymore. The GC usually runs aside our program, and will slow it down due to the limited computer resources.</p>
+<p>In Rust, the third approach, if we obey the rules of ownership and make the program compiled, <strong>none of the features of ownership will slow down your program while it’s running, and you won't gain any both potential bugs and unreleased unused memory.</strong></p>
 	</section>
 	</div>
     </div>
