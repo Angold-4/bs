@@ -153,6 +153,7 @@ Here I'll show some design choices/pattens in Rust: Based on the book 《The Rus
 ### 0. Compiler Errors
 In Rust, compiler errors can be frustrating and occur frequently, but really they only mean your program isn’t safely doing what you want it to do yet; they do not mean that you’re not a good programmer! Experienced Rustaceans still get compiler errors.
 
+Even though these compile errors may be frustrating at times, remember that it’s the Rust compiler pointing out a potential bug early (at compile time rather than at runtime).
 
 ### 1. Mutability
 
@@ -229,15 +230,98 @@ In the second approach, we do not need to think about the memory stuff, just kee
 
 In Rust, the third approach, if we obey the rules of ownership and make the program compiled, **none of the features of ownership will slow down your program while it’s running, and you won't gain any both potential bugs and unreleased unused memory.**
 
+#### The Ownership Rules
+
+1. **Each value in Rust has an owner.**
+2. **There can only be one owner at a time.**
+3. When the owner goes out of scope, the value will be dropped automatically
+
+```rust
+    let s1 = String::from("hello");
+    let s2 = s1;                   // s2 now own the value of s1
+
+    println!("{}, world!", s1);    // compile error
+    // the value is being "moved" from s1 to s2
+    // the s1 has been invalidated
+```
+
+If you’ve heard the terms *shallow copy* and *deep copy* while working with other languages, the concept of copying the pointer, length, and capacity without copying the data probably sounds like making a shallow copy. But because Rust also **invalidates the first variable, instead of calling it a shallow copy, it’s known as a move**. In this example, we would say that **`s1`** was moved into **`s2`**. So what actually happens is shown in the following Figure.
+
+![ownership](Sources/ownership.png)
+
+#### Why do we need Ownership?
+
+One of the purpose of the ownership rule is to solve some problems that we usually encounter in Type #1 language like C and C++:  **The Double Free Error**
+
+When a variable goes out of scope, **Rust automatically calls the drop function and cleans up the heap memory for that variable.** But if both data pointers pointing to the same location. This is a problem: when s2 and s1 go out of scope, they will both try to free the same memory. This is known as a double free error and is one of the memory safety bugs we mentioned previously. Freeing memory twice can lead to memory corruption, which can potentially lead to security vulnerabilities.
 
 
+### 4. Borrowing
+
+Sometimes, after calling a function and give the ownership of that variable to it, we may stll want to use that variable after the function return. (that variable should not be invalidated). The solution is that **we can provide a reference to that variable, when we pass that reference, there is no ownership transfer**, which means that **the function just "borrow" the value of that variable** (do not own it).
+
+A *reference* is like a pointer in that it’s an address we can follow to access the data stored at that address; that data is owned by some other variable. Unlike a pointer, **a reference is guaranteed to point to a valid value of a particular type for the life of that reference**. (the memory should not be dropped.)
+
+Here is how you would define and use a `calculate_length` function that has a reference to an object as a parameter instead of taking ownership of the value:
+```rust
+fn main() {
+    let s1 = String::from("hello");
+
+    let len = calculate_length(&s1);
+
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+} // Here, s goes out of scope. But because it does not have ownership of what
+  // it refers to, it is not dropped.
+```
+
+![borrowing](Sources/borrowing.png)
 
 
+#### Mutable References
 
+Just as variables are immutable by default, so are references. We’re not allowed to modify something we have a reference to. But you can also create a mutable reference by adding a `mut` keyword:
 
+```rust
+fn main() {
+    let mut s = String::from("hello");
 
+    change(&mut s);
+}
 
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
 
+Mutable references have one big restriction: **if you have a mutable reference to a value, you can have no other references to that value.** This code that attempts to create two mutable references to s will fail. 
 
+The benefit of having this restriction is that Rust can **prevent data races at compile time**. A data race is similar to a race condition and happens when these three behaviors occur:
 
+1. Two or more pointers access the same data at the same time.
+2. At least one of the pointers is being used to write to the data.
+3. There’s no mechanism being used to synchronize access to the data.
+
+Data races cause undefined behavior and can be difficult to diagnose and fix when you’re trying to track them down at runtime; Rust prevents this problem by refusing to compile code with data races!
+
+Another restriction of mutable reference is that **We also cannot have a mutable reference while we have an immutable one to the same value.**
+
+The reason is also relatively simple: Users of an immutable reference **don’t expect the value to suddenly change out from under them!**
+
+```rust
+    let mut s = String::from("hello");
+
+    let r1 = &s; // no problem
+    let r2 = &s; // no problem
+    println!("{} and {}", r1, r2);
+    // variables r1 and r2 will not be used after this point
+
+    let r3 = &mut s; // no problem
+    println!("{}", r3);
+```
+
+The scopes of the immutable references `r1` and `r2` end after the `println!` where they are last used, which is before the mutable reference `r3` is created. These scopes don’t overlap, so this code is allowed.
 
