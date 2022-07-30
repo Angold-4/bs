@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Angold-4 Organization</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../images/favicon.png" rel="icon">
+
+<link rel="canonical" href=".">
+        <meta name="author" content="Angold Wang" />
+
+    <meta property="og:site_name" content="Angold-4" />
+<!--     <meta property="og:type" content="article"/> -->
+    <meta property="og:title" content="Angold-4 Organization"/>
+    <meta property="og:url" content="."/>
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.flatly.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+<!--     <link href="https://cdnjs.cloudflare.com/ajax/libs/typicons/2.0.9/typicons.min.css" rel="stylesheet"> -->
+
+    <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script> -->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="http://angold4.org" class="navbar-brand">
+<img src="../../../images/logo.png" width="32"/> Angold4            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+			    <li><a href="../../../about.html">About</a>
+                            <li><a href="../../../blogs.html">Blogs</a>
+                            <li><a href="../../../projects.html">Projects</a>
+
+	    </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li> <a title="Youtube" href="https://www.youtube.com/channel/UC3ZAjh2LHhm-FrgxgBtgMzQ" target="_new"><i class="fa fa-youtube"></i> Youtube</a>
+		</li>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+	<section id="content" class="body">
+
+
+
+<h1>Codeforces Round #809 (Div.2) Tutorial</h1>
+<h2>1706A. Another String Minimization Problem (Greedy)</h2>
+<p>Let's iterate through the elements of a. For convenience, we'll make ai = min(ai ,m+1−ai). If the ai-th character of s is not currently A, then we should replace it. Otherwise, we replace the (m+1−ai)-th character. <strong>&quot;Smaller first, if smaller is taken, then replace the bigger one&quot;</strong>.</p>
+<ul>
+<li>My Solution: <strong><a href="https://codeforces.com/contest/1706/submission/164751915">164751915</a></strong></li>
+<li>Editorial Solution: <strong><a href="https://codeforces.com/contest/1706/submission/164799099">164799099</a></strong></li>
+</ul>
+<h2>1706B. Making Towers (DP, Greedy)</h2>
+<p>First of all, if we have two blocks of the same color at indices i and j such that i &lt; j, how can we tell if it is possible to place them at (xi, yi) and (xi, yi + 1) respectively?</p>
+<p>As it turns out, they can be placed like this <strong>if and only if i and j have different parities</strong>, (parity is the property of an integer of whether it is even or odd).
+As you can imagine, if there are odd number of colored blocks between i and j, then jth block can be placed above ith.</p>
+<h3>1. DP</h3>
+<p>The DP is quite a normal solution, but I didn't come up with that during the contest. Since there are only two parities (odd and even) or colored blocks (their positions), we should only care about those two.</p>
+<ul>
+<li>Here is the DP structure: <strong><code>dp[oe][c]</code> stands for the maximum # of blocks building of color <code>c</code> of parity <code>oe</code></strong>.</li>
+<li>Here is the state-trans function: <strong><code>dp[oe][c] = max(dp[oe][c], dp[eo][c] + 1)</code></strong> (the <strong><code>eo</code></strong> means the oppsite of <strong><code>oe</code></strong>).</li>
+</ul>
+<pre><code class="language-cpp">  for (int i = 1; i &lt;= n; i++) {
+    int x; cin &gt;&gt; x; // x := current color
+    dp[i &amp; 1][x] = max(dp[i &amp; 1][x], dp[(i ^ 1) &amp; 1][x] + 1);
+  }
+</code></pre>
+<p>In this problem, since in each iteration, we only can in one state: <strong>odd/even parities</strong>. And notice that all these states are predefined. <strong>So each action (pick/not pick this block will never cause the state to be changed), and if the state will be changed, we need to consider them independently (pick/not pick), just like we did in <a href="https://codeforces.com/problemset/problem/698/A">698A. Vacations</a></strong>.</p>
+<p>This solution runs in linear time.</p>
+<ul>
+<li>My Solution: <strong><a href="https://codeforces.com/contest/1706/submission/165298559">165298559</a></strong></li>
+</ul>
+<h3>2. Greedy</h3>
+<p>Alternatively, there is a greedy solution. <strong>After selecting a block, the next block selected must always have the opposite parity.</strong></p>
+<p>Imagine a sequencial scan of all the colored blocks: Let's say the red blocks stand for even, the white blocks stand for odd, if we use greedy, the question will be: <strong>&quot;will the greedily selection at each position affect future selection, and make the answer not optimal?&quot;</strong></p>
+<p>The answer should be no, if the first block is in even position (red), and next is in odd position, if we greedily choose it, and then we are in white state. If we do not choose it, and waiting for a &quot;better&quot; position to choose it later, let's say we meet another white state, and we believe wait until here to choose it will lead a better result, then after we choose it, in that white state, we are no difference than choose that white earlier, and potentialy we lose some &quot;white to red&quot;
+transaction between it.</p>
+<p><img src="Sources/greedy.png" alt="greedy"></p>
+<p>To sum up, <strong>it makes sense to greedily select the first block of the same color with opposite parity, since it will never improve the answer if we select a later block.</strong></p>
+<ul>
+<li>My Solution: <strong><a href="https://codeforces.com/contest/1706/submission/165325194">165325194</a></strong></li>
+</ul>
+<h2>1706C. Qpwoeirut And The City (prefix sum)</h2>
+<p>This problem requires you to think about it before actually writing some code. First, when N buildings in the city, there should have maximum <strong><code>(N-1)/2</code></strong> cool buildings. There are two cases:</p>
+<ol>
+<li>
+<p>For <strong>odd</strong> N, there is only one way to achieve the maximum # of cool buildings, <strong>just need to find the total floors necessary to make each of the alternating buildings (starting from the 2nd building) cool and that is the answer.</strong></p>
+</li>
+<li>
+<p>For <strong>even</strong> N, to achieve the maximum # of cool buildings, we should make only one choice, which means in only one chance, we can &quot;give up&quot; the ith building (maybe it is too relatively expensive to build) and then choose i+1.</p>
+</li>
+</ol>
+<p>For the second case, since we can only make one choice, the states are limited, we do not need to use dp: <strong>just consider each possibilities:</strong></p>
+<p>For example, in the 4th test case from the example in the problem statement, the possible configurations of cool buildings are...</p>
+<p>(light — normal (not cool) building, <strong>bold</strong> — cool building)</p>
+<ul>
+<li>
+<p>4 <strong>2</strong> 1 <strong>3</strong> 5 <strong>3</strong> 6 1</p>
+</li>
+<li>
+<p>4 <strong>2</strong> 1 <strong>3</strong> 5 3 <strong>6</strong> 1</p>
+</li>
+<li>
+<p>4 <strong>2</strong> 1 3 <strong>5</strong> 3 <strong>6</strong> 1</p>
+</li>
+<li>
+<p>4 2 <strong>1</strong> 3 <strong>5</strong> 3 <strong>6</strong> 1</p>
+</li>
+<li>
+<p>1st configuration: (5 - 2) + (6 - 3) + (7 - 3) = 10.</p>
+</li>
+<li>
+<p>2nd configuration: 10 - (7 - 3) + (6 - 6) = 6.</p>
+</li>
+<li>
+<p>3rd configuration: 6 - (6 - 3) + (5 - 5) = 3.</p>
+</li>
+<li>
+<p>4th configuration: 3 - (5 - 2) + (4 - 1) = 3.</p>
+</li>
+</ul>
+<p>For even n, the floors necessary for every configuration can also be found in O(n) time using an alternating <strong>forward prefix sum array</strong> and an alternating <strong>backward prefix sum array</strong>.</p>
+<ul>
+<li>My Solution:  <strong><a href="https://codeforces.com/contest/1706/submission/165490020">165490020</a></strong></li>
+</ul>
+	</section>
+	</div>
+    </div>
+
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+this.page.url = "https://angold4.org/bs/2022/03/CF1706.html"
+this.page.identifier = "bs/2022/03/CF1706.html"
+
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://angold.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+</div>
+<footer>
+   <div class="well well-lg" id="footer-well">
+      <div class="container">
+
+
+      <div class="row">
+         <div class="col-xs-6">
+            <a href="https://angold4.org" title="Angold-4 Organization" class="image-link"><img src="../../../images/logo.png" class="cmudb-logo" /></a>
+         </div>
+         <div class="col-xs-6">
+            <p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p>
+        </div>
+      </div>
+   </div>
+   </div>
+</footer>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<!-- Fix scrolling issues to internal HREFs that get positioned behind navbar -->
+<!-- http://stackoverflow.com/questions/10732690/offsetting-an-html-anchor-to-adjust-for-fixed-header -->
+<script src="../../../theme/js/href_scroll.js"></script>
+
+<!-- You know what this is and you know what he did to me... -->
+<script src="../../../theme/js/tim-kraska-betrayed-me.js"></script>
+</body>
+</html>
+
