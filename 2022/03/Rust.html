@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link href="../../../images/favicon.png" rel="icon">
-
 <link rel="canonical" href=".">
         <meta name="author" content="Angold Wang" />
 
@@ -26,6 +25,128 @@
 
     <link href="../../../theme/css/pygments/monokai.css" rel="stylesheet">
     <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+  <style>
+
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+
+    li {
+      font-size: 18px;
+    }
+
+    p {
+      font-size: 18px;
+    }
+
+    a {
+      font-size: 18px;
+    }
+
+    k
+
+    code {
+      font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+      font-size: 85%;
+      margin: 0;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+    {   }
+
+    @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
 
 </head>
 <body>
@@ -64,173 +185,437 @@
     <div class="row">
         <div class="col-lg-12">
 	<section id="content" class="body">
-
-
-
-<h1>The Rust Programming Language</h1>
-<h5>Angold Wang | 2022-03-24</h5>
-<h2>1. Why Rust?</h2>
-<h4>&quot;Safe System Performance Programming&quot;</h4>
+<nav id="TOC" role="doc-toc">
+<ul>
+<li><a href="#the-rust-programming-language"
+id="toc-the-rust-programming-language">The Rust Programming Language</a>
+<ul>
+<li><a href="#why-rust" id="toc-why-rust">1. Why Rust?</a></li>
+<li><a href="#control---case-study-zero-cost-abstraction-in-c-c"
+id="toc-control---case-study-zero-cost-abstraction-in-c-c">2. Control -
+Case study: Zero-Cost Abstraction in C / C++</a>
+<ul>
+<li><a href="#i.-memory-allocation" id="toc-i.-memory-allocation">i.
+Memory Allocation</a></li>
+<li><a href="#ii.-calling-conventions"
+id="toc-ii.-calling-conventions">ii. Calling Conventions</a></li>
+<li><a href="#iii.-zero-cost-abstraction"
+id="toc-iii.-zero-cost-abstraction">iii. Zero-Cost Abstraction</a></li>
+</ul></li>
+<li><a href="#design-patten" id="toc-design-patten">3. Design Patten</a>
+<ul>
+<li><a href="#compiler-errors" id="toc-compiler-errors">0. Compiler
+Errors</a></li>
+<li><a href="#mutability" id="toc-mutability">1. Mutability</a></li>
+<li><a href="#statements-and-expressions"
+id="toc-statements-and-expressions">2. Statements and
+Expressions</a></li>
+<li><a href="#ownership" id="toc-ownership">3. Ownership</a></li>
+<li><a href="#borrowing" id="toc-borrowing">4. Borrowing</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+<h1 id="the-rust-programming-language">The Rust Programming
+Language</h1>
+<h5 id="angold-wang-2022-03-24">Angold Wang | 2022-03-24</h5>
+<h2 id="why-rust">1. Why Rust?</h2>
+<h4 id="safe-system-performance-programming">“Safe System Performance
+Programming”</h4>
 <ul>
 <li><strong>System Programming Language:</strong> <em>C, C++</em>.</li>
-<li><strong>Safe Programming Language:</strong> <em>ML, Haskell, Java</em></li>
+<li><strong>Safe Programming Language:</strong> <em>ML, Haskell,
+Java</em></li>
 </ul>
-<p><strong>Mozilla trying to blend the best of both of these languages</strong>.</p>
-<h4>Why is Mozilla interested in creating a new programming language?</h4>
+<p><strong>Mozilla trying to blend the best of both of these
+languages</strong>.</p>
+<h4
+id="why-is-mozilla-interested-in-creating-a-new-programming-language">Why
+is Mozilla interested in creating a new programming language?</h4>
 <ul>
-<li>Mozilla is the organization that created the Firefox web browser, current written in <em>C++</em>.</li>
-<li><strong>Web browsers need a high degree of control over the machine</strong>.
+<li>Mozilla is the organization that created the Firefox web browser,
+current written in <em>C++</em>.</li>
+<li><strong>Web browsers need a high degree of control over the
+machine</strong>.
 <ul>
-<li>Doing very complex tasks very quickly (all these tabs running simultaneously)</li>
-</ul>
-</li>
+<li>Doing very complex tasks very quickly (all these tabs running
+simultaneously)</li>
+</ul></li>
 <li><strong>Web browsers need safety</strong>
 <ul>
 <li>Running untrusted code, which is been downloaded from internet.</li>
+</ul></li>
+<li><strong>Languages like <em>C/C++</em> that give you the kind of
+control you need in order to get the performance, but also leave you
+open to all kinds of security vulnerabilities.</strong></li>
+<li>Mozilla want to build the next generation web browser, which is a
+project called <em><a
+href="https://github.com/servo/servo">servo</a></em>. And they wants to
+do it in a new language that tries to do better at giving you both
+<strong>control</strong> and <strong>safety</strong> at the same
+time.</li>
 </ul>
-</li>
-<li><strong>Languages like <em>C/C++</em> that give you the kind of control you need in order to get the performance, but also leave you open to all kinds of security vulnerabilities.</strong></li>
-<li>Mozilla want to build the next generation web browser, which is a project called <em><a href="https://github.com/servo/servo">servo</a></em>. And they wants to do it in a new language that tries to do better at giving you both <strong>control</strong> and <strong>safety</strong> at the same time.</li>
-</ul>
-<h2>2. Control - Case study: Zero-Cost Abstraction in C / C++</h2>
-<p>C and C++ is sort of the best existing language in this respect (control).</p>
-<h3>i. Memory Allocation</h3>
-<p><img src="Sources/memlayout.png" alt="memlayout"></p>
-<p>Basically, there are <strong>four</strong> places in Memory for C/C++ program to store data.</p>
-<h4>1. Stack</h4>
-<p><strong>Most of the temporary variables created at runtime are stored in the stack. They are created (push) when the corresponding procedure is called and destroyed (pop) when returns.</strong></p>
+<h2 id="control---case-study-zero-cost-abstraction-in-c-c">2. Control -
+Case study: Zero-Cost Abstraction in C / C++</h2>
+<p>C and C++ is sort of the best existing language in this respect
+(control).</p>
+<h3 id="i.-memory-allocation">i. Memory Allocation</h3>
+<figure>
+<img src="Sources/memlayout.png" alt="memlayout" />
+<figcaption aria-hidden="true">memlayout</figcaption>
+</figure>
+<p>Basically, there are <strong>four</strong> places in Memory for C/C++
+program to store data.</p>
+<h4 id="stack">1. Stack</h4>
+<p><strong>Most of the temporary variables created at runtime are stored
+in the stack. They are created (push) when the corresponding procedure
+is called and destroyed (pop) when returns.</strong></p>
 <p>Consider the following C code snippet:</p>
-<pre><code class="language-c">char s[] = &quot;abc&quot;; // {'a', 'b', 'c', 'd', '\n'}
-char t[3] = &quot;def&quot;;
-
-printf(&quot;s: %s\n&quot;, s);
-printf(&quot;t: %s\n&quot;, t);
-</code></pre>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> s<span class="op">[]</span> <span class="op">=</span> <span class="st">&quot;abc&quot;</span><span class="op">;</span> <span class="co">// {&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;\n&#39;}</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> t<span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">=</span> <span class="st">&quot;def&quot;</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;s: %s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> s<span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;t: %s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> t<span class="op">);</span></span></code></pre></div>
 <p>The output of this process looks strange:</p>
 <pre><code>s: abc
-t: defabc
-</code></pre>
-<p>After check the generated assembly code in <strong><a href="./src/char.s">char.s</a></strong>, It is easy to figure out why <strong><code>t</code></strong> becomes <strong><code>defabc</code></strong>.</p>
-<p><strong>Since <code>printf</code> only stops looking for the next byte when encounters <code>\0</code> (terminator).</strong> If we do not define the variable with the correct format and size, because these temp data are stored in the stack, sometimes it will cause some unexpected errors.</p>
-<p><img src="Sources/stack.png" alt="stack"></p>
-<h4>2. Text</h4>
-<p><strong>The Text segment has <code>e</code> bit enabled, the compiler generate program instructions in this segment. And this segment also hardcodes all &quot;strings&quot; that was defined inside the function.</strong></p>
-<pre><code class="language-asm">	.section	__TEXT,__cstring,cstring_literals
-L___const.main.s:                       ## @__const.main.s
-	.asciz	&quot;abc&quot;
-
-	.section	__TEXT,__const
-l___const.main.t:                       ## @__const.main.t
-	.ascii	&quot;def&quot;
-</code></pre>
-<h4>3. Heap</h4>
-<p><strong>In C, the <code>malloc()</code> function will allocate a memory in Heap, and then return the begin address of that chunk of new memory.</strong></p>
-<pre><code class="language-c">char *p = malloc(6*sizeof(char));
-strcpy(p, &quot;strcpy&quot;);
-printf(&quot;p: %s\n&quot;, p); // strcpy
-</code></pre>
-<p><img src="Sources/heap.png" alt="heap"></p>
-<h4>4. Data</h4>
-<p><strong>The Data segment contains global data. Which can be accessed from all functions in the current program.</strong></p>
-<pre><code class="language-asm">	.section	__DATA,__data
-	.globl	_data                           ## @data
-	.p2align	2
-_data:
-	.long	12345                           ## 0x3039
-
-</code></pre>
-<h3>ii. Calling Conventions</h3>
-<p><strong>The calling conventions describes the interface of the called code.</strong> Which makes the caller code can find what they wants (arguments, return address, fp ,etc.)</p>
-<p><img src="Sources/CC.png" alt="CC"></p>
-<p>There are two kinds of the registers in <strong>Calling Conventions:</strong> caller and callee saved.</p>
-<h4>Caller-Saved Registers</h4>
-<p><strong>Not preserved across the call.</strong> These are scratch registers - the callee is allowed to scribble over them. <strong>So if the caller cares about their contents, the caller must save them into stack before make the call.</strong></p>
-<h4>Callee-Saved Registers</h4>
-<p><strong>Preserved across the call.</strong> If the callee uses them, then the callee must restore the original values before returning.</p>
-<h4>Usage of <code>%fp / %rbp</code></h4>
-<p>Except for addressing variables in stack, the frame pointer (also called base pointer) are also used in <strong>Back Trace.</strong> Which can print the <strong>calling stack</strong> during the fn calling conventions</p>
-<pre><code class="language-c">void
-backtrace(void) {
-    uint64 cur_fp = r_fp();
-
-    while (cur_fp != PGROUNDDOWN(cur_fp)) {   // Page top
-	printf(&quot;%p\n&quot;, *(uint64 *)(cur_fp - 8));  // the return address
-	cur_fp = *(uint64 *)(cur_fp - 16);        // next frame begin
-    }
-}
-
-</code></pre>
-<h3>iii. Zero-Cost Abstraction</h3>
-<p>When we say <strong>&quot;Control&quot;</strong> in programming language, it usually means <strong>&quot;How much control we can get over the machine?&quot;</strong></p>
-<p>For example, like what I mentioned earlier. If you declare a <code>vector</code> in C++ and you've read the <code>STL</code> code. You'll know exactly how that is going to be laid out in terms of the memory.</p>
-<pre><code class="language-c">vector&lt;int&gt; vec;
-auto&amp; elem = vec[0];
-</code></pre>
-<p>In particular, in this code snipper. There are some field of the vector, including a pointer to the actuall data in the heap and some metadata about it, that all live on the stack. And you can have a lot of controls over the layout if you want.</p>
-<p><img src="Sources/stlvec.png" alt="stlvec"></p>
-<p>One of the principles that you get out of C++ is something often called <strong>&quot;Zero-cost abstraction&quot;.</strong> Which means you can build libraries like <code>vector</code> or <code>string</code> that are reasonably convinence to use (they give you nice abstraction). <strong>But if you compile it down. It is nothing different than you could have written by hand in assembly.</strong></p>
-<h4>You're not giving up any performance in doing this abstraction</h4>
-<h2>3. Design Patten</h2>
-<p>Here I'll show some design choices/pattens in Rust: Based on the book 《The Rust Programming Language》</p>
-<h3>0. Compiler Errors</h3>
-<p>In Rust, compiler errors can be frustrating and occur frequently, but really they only mean your program isn’t safely doing what you want it to do yet; they do not mean that you’re not a good programmer! Experienced Rustaceans still get compiler errors.</p>
-<h3>1. Mutability</h3>
-<p><strong>By default variables are immutable.</strong> It’s important that we get compile-time errors when we attempt to change a value that’s designated as immutable because this very situation can lead to bugs.</p>
-<p>If one part of our code operates on the assumption that a value will never change and another part of our code changes that value, it’s possible that the first part of the code won’t do what it was designed to do. The cause of this kind of bug can be difficult to track down after the fact, <strong>especially when the second piece of code changes the value only sometimes.</strong></p>
-<h4>Shadowing</h4>
-<pre><code class="language-rust">fn main() {
-    let x = 5;
-
-    let x = x + 1;
-
-    {
-        let x = x * 2;
-        println!(&quot;The value of x in the inner scope is: {x}&quot;);
-    }
-
-    println!(&quot;The value of x is: {x}&quot;);
-}
-</code></pre>
-<p>The first variable <code>x</code> is <strong>shadowed</strong> by the second, means that the second variable is what the compiler will see when you use the name of the variable in the inner scope. As a concequence:</p>
-<ol>
-<li>We do not need to make a new temporary variable name (e.g., y) to use, we can reuse the same name efficiently.</li>
-<li>By using <code>let</code>, we can perform a few operations on a value but have the variable immutable after those ops have been completed.</li>
-</ol>
+t: defabc</code></pre>
+<p>After check the generated assembly code in <strong><a
+href="./src/char.s">char.s</a></strong>, It is easy to figure out why
+<strong><code>t</code></strong> becomes
+<strong><code>defabc</code></strong>.</p>
+<p><strong>Since <code>printf</code> only stops looking for the next
+byte when encounters <code>\0</code> (terminator).</strong> If we do not
+define the variable with the correct format and size, because these temp
+data are stored in the stack, sometimes it will cause some unexpected
+errors.</p>
+<figure>
+<img src="Sources/stack.png" alt="stack" />
+<figcaption aria-hidden="true">stack</figcaption>
+</figure>
+<h4 id="text">2. Text</h4>
+<p><strong>The Text segment has <code>e</code> bit enabled, the compiler
+generate program instructions in this segment. And this segment also
+hardcodes all “strings” that was defined inside the
+function.</strong></p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">section</span>    __TEXT<span class="op">,</span>__cstring<span class="op">,</span>cstring_literals</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">L___const.main.s:</span>                       ## @__const<span class="op">.</span>main<span class="op">.</span>s</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    .asciz  <span class="st">&quot;abc&quot;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">section</span>    __TEXT<span class="op">,</span>__const</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">l___const.main.t:</span>                       ## @__const<span class="op">.</span>main<span class="op">.</span>t</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    .ascii  <span class="st">&quot;def&quot;</span></span></code></pre></div>
+<h4 id="heap">3. Heap</h4>
+<p><strong>In C, the <code>malloc()</code> function will allocate a
+memory in Heap, and then return the begin address of that chunk of new
+memory.</strong></p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="dt">char</span> <span class="op">*</span>p <span class="op">=</span> malloc<span class="op">(</span><span class="dv">6</span><span class="op">*</span><span class="kw">sizeof</span><span class="op">(</span><span class="dt">char</span><span class="op">));</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>strcpy<span class="op">(</span>p<span class="op">,</span> <span class="st">&quot;strcpy&quot;</span><span class="op">);</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>printf<span class="op">(</span><span class="st">&quot;p: %s</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> p<span class="op">);</span> <span class="co">// strcpy</span></span></code></pre></div>
+<figure>
+<img src="Sources/heap.png" alt="heap" />
+<figcaption aria-hidden="true">heap</figcaption>
+</figure>
+<h4 id="data">4. Data</h4>
+<p><strong>The Data segment contains global data. Which can be accessed
+from all functions in the current program.</strong></p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode asm"><code class="sourceCode fasm"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">section</span>    __DATA<span class="op">,</span>__data</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    .globl  _data                           <span class="op">##</span> <span class="fu">@</span><span class="er">d</span>ata</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    .p2align    <span class="dv">2</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">_data:</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    .long   <span class="dv">12345</span>                           <span class="op">##</span> <span class="bn">0x3039</span></span></code></pre></div>
+<h3 id="ii.-calling-conventions">ii. Calling Conventions</h3>
+<p><strong>The calling conventions describes the interface of the called
+code.</strong> Which makes the caller code can find what they wants
+(arguments, return address, fp ,etc.)</p>
+<figure>
+<img src="Sources/CC.png" alt="CC" />
+<figcaption aria-hidden="true">CC</figcaption>
+</figure>
+<p>There are two kinds of the registers in <strong>Calling
+Conventions:</strong> caller and callee saved.</p>
+<h4 id="caller-saved-registers">Caller-Saved Registers</h4>
+<p><strong>Not preserved across the call.</strong> These are scratch
+registers - the callee is allowed to scribble over them. <strong>So if
+the caller cares about their contents, the caller must save them into
+stack before make the call.</strong></p>
+<h4 id="callee-saved-registers">Callee-Saved Registers</h4>
+<p><strong>Preserved across the call.</strong> If the callee uses them,
+then the callee must restore the original values before returning.</p>
+<h4 id="usage-of-fp-rbp">Usage of <code>%fp / %rbp</code></h4>
+<p>Except for addressing variables in stack, the frame pointer (also
+called base pointer) are also used in <strong>Back Trace.</strong> Which
+can print the <strong>calling stack</strong> during the fn calling
+conventions</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>backtrace<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    uint64 cur_fp <span class="op">=</span> r_fp<span class="op">();</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>cur_fp <span class="op">!=</span> PGROUNDDOWN<span class="op">(</span>cur_fp<span class="op">))</span> <span class="op">{</span>   <span class="co">// Page top</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    printf<span class="op">(</span><span class="st">&quot;%p</span><span class="sc">\n</span><span class="st">&quot;</span><span class="op">,</span> <span class="op">*(</span>uint64 <span class="op">*)(</span>cur_fp <span class="op">-</span> <span class="dv">8</span><span class="op">));</span>  <span class="co">// the return address</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    cur_fp <span class="op">=</span> <span class="op">*(</span>uint64 <span class="op">*)(</span>cur_fp <span class="op">-</span> <span class="dv">16</span><span class="op">);</span>        <span class="co">// next frame begin</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<h3 id="iii.-zero-cost-abstraction">iii. Zero-Cost Abstraction</h3>
+<p>When we say <strong>“Control”</strong> in programming language, it
+usually means <strong>“How much control we can get over the
+machine?”</strong></p>
+<p>For example, like what I mentioned earlier. If you declare a
+<code>vector</code> in C++ and you’ve read the <code>STL</code> code.
+You’ll know exactly how that is going to be laid out in terms of the
+memory.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>vector<span class="op">&lt;</span><span class="dt">int</span><span class="op">&gt;</span> vec<span class="op">;</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dt">auto</span><span class="op">&amp;</span> elem <span class="op">=</span> vec<span class="op">[</span><span class="dv">0</span><span class="op">];</span></span></code></pre></div>
+<p>In particular, in this code snipper. There are some field of the
+vector, including a pointer to the actuall data in the heap and some
+metadata about it, that all live on the stack. And you can have a lot of
+controls over the layout if you want.</p>
+<figure>
+<img src="Sources/stlvec.png" alt="stlvec" />
+<figcaption aria-hidden="true">stlvec</figcaption>
+</figure>
+<p>One of the principles that you get out of C++ is something often
+called <strong>“Zero-cost abstraction”.</strong> Which means you can
+build libraries like <code>vector</code> or <code>string</code> that are
+reasonably convinence to use (they give you nice abstraction).
+<strong>But if you compile it down. It is nothing different than you
+could have written by hand in assembly.</strong></p>
+<h4
+id="youre-not-giving-up-any-performance-in-doing-this-abstraction">You’re
+not giving up any performance in doing this abstraction</h4>
+<h2 id="design-patten">3. Design Patten</h2>
+<p>Here I’ll show some design choices/pattens in Rust: Based on the book
+《The Rust Programming Language》</p>
+<h3 id="compiler-errors">0. Compiler Errors</h3>
+<p>In Rust, compiler errors can be frustrating and occur frequently, but
+really they only mean your program isn’t safely doing what you want it
+to do yet; they do not mean that you’re not a good programmer!
+Experienced Rustaceans still get compiler errors.</p>
+<p>Even though these compile errors may be frustrating at times,
+remember that it’s the Rust compiler pointing out a potential bug early
+(at compile time rather than at runtime).</p>
+<h3 id="mutability">1. Mutability</h3>
+<p><strong>By default variables are immutable.</strong> It’s important
+that we get compile-time errors when we attempt to change a value that’s
+designated as immutable because this very situation can lead to
+bugs.</p>
+<p>If one part of our code operates on the assumption that a value will
+never change and another part of our code changes that value, it’s
+possible that the first part of the code won’t do what it was designed
+to do. The cause of this kind of bug can be difficult to track down
+after the fact, <strong>especially when the second piece of code changes
+the value only sometimes.</strong></p>
+<h4 id="shadowing">Shadowing</h4>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x <span class="op">=</span> <span class="dv">5</span><span class="op">;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> x <span class="op">=</span> x <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> x <span class="op">=</span> x <span class="op">*</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">&quot;The value of x in the inner scope is: {x}&quot;</span>)<span class="op">;</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;The value of x is: {x}&quot;</span>)<span class="op">;</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The first variable <code>x</code> is <strong>shadowed</strong> by the
+second, means that the second variable is what the compiler will see
+when you use the name of the variable in the inner scope. As a
+concequence: 1. We do not need to make a new temporary variable name
+(e.g., y) to use, we can reuse the same name efficiently. 2. By using
+<code>let</code>, we can perform a few operations on a value but have
+the variable immutable after those ops have been completed.</p>
 <pre><code>$ cargo run
    Compiling variables v0.1.0 (file:///projects/variables)
     Finished dev [unoptimized + debuginfo] target(s) in 0.31s
      Running `target/debug/variables`
 The value of x in the inner scope is: 12
-The value of x is: 6
-</code></pre>
-<h3>2. Statements and Expressions</h3>
+The value of x is: 6</code></pre>
+<h3 id="statements-and-expressions">2. Statements and Expressions</h3>
 <ul>
-<li><strong>Statements</strong> are instructions that perform some action and do not return a value.</li>
+<li><strong>Statements</strong> are instructions that perform some
+action and do not return a value.</li>
 <li><strong>Expressions</strong> evaluate to a resulting value.</li>
 </ul>
-<p>Expressions evaluate to a value and make up most of the rest of the code that you’ll write in Rust.</p>
-<pre><code class="language-rust">fn main() {
-    let y = {
-        let x = 3;
-        x + 1
-    };
-
-    println!(&quot;The value of y is: {y}&quot;);
-}
-</code></pre>
-<p>The block is an expression, in this case, evaluates to <code>4</code>. That value gets bound to <code>y</code> as part of the let statement. Note that the <code>x + 1</code> line doesn’t have a semicolon at the end, unlike most of the lines you’ve seen so far. <strong>Expressions do not include ending semicolons</strong>. If you add a semicolon to the end of an expression, you turn it into a statement, and it will then not return a value.</p>
-<p>In Rust, the return value of the function is synonymous with the value of the final expression in the block of the body of a function.</p>
-<h3>3. Ownership</h3>
-<p>Ownership is a set of rules that governs how a Rust program manages memory. All programs have to manage the way they use a computer’s memory while running.</p>
-<p>In general, there are three ways for programming language to free the unused memory:</p>
-<ol>
-<li><strong>Explicitly allocate and free the memory.</strong> (e.g,. C, C++)</li>
-<li><strong>Using Garbage Collector that regularly looks for no-longer used memory as the program runs</strong> (e.g,. Java, Go)</li>
-<li><strong>Memory is managed through a system of ownership with a set of rules that the compiler checks. If all rules were followed, the code will be compiled successfully, and the compiler will help you do the deallocation automatically</strong> (e.g,. Rust)</li>
+<p>Expressions evaluate to a value and make up most of the rest of the
+code that you’ll write in Rust.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> y <span class="op">=</span> <span class="op">{</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">let</span> x <span class="op">=</span> <span class="dv">3</span><span class="op">;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        x <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">};</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;The value of y is: {y}&quot;</span>)<span class="op">;</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The block is an expression, in this case, evaluates to
+<code>4</code>. That value gets bound to <code>y</code> as part of the
+let statement. Note that the <code>x + 1</code> line doesn’t have a
+semicolon at the end, unlike most of the lines you’ve seen so far.
+<strong>Expressions do not include ending semicolons</strong>. If you
+add a semicolon to the end of an expression, you turn it into a
+statement, and it will then not return a value.</p>
+<p>In Rust, the return value of the function is synonymous with the
+value of the final expression in the block of the body of a
+function.</p>
+<h3 id="ownership">3. Ownership</h3>
+<p>Ownership is a set of rules that governs how a Rust program manages
+memory. All programs have to manage the way they use a computer’s memory
+while running.</p>
+<p>In general, there are three ways for programming language to free the
+unused memory:</p>
+<ol type="1">
+<li><strong>Explicitly allocate and free the memory.</strong> (e.g,. C,
+C++)</li>
+<li><strong>Using Garbage Collector that regularly looks for no-longer
+used memory as the program runs</strong> (e.g,. Java, Go)</li>
+<li><strong>Memory is managed through a system of ownership with a set
+of rules that the compiler checks. If all rules were followed, the code
+will be compiled successfully, and the compiler will help you do the
+deallocation automatically</strong> (e.g,. Rust)</li>
 </ol>
-<p>Genearally, In the first approach, it’s our responsibility to identify when memory is no longer being used and call code to explicitly free it, just as we did to request it. Doing this correctly has historically been a difficult programming problem. <strong>If we forget, we’ll waste memory. If we do it too early, we’ll have an invalid variable. If we do it twice, that’s a bug too. We need to pair exactly one allocate with exactly one free.</strong></p>
-<p>In the second approach, we do not need to think about the memory stuff, just keep creating the variables in the heap, and the Garbage Collector (GC) will help us to cleans up the memory that isn't being used anymore. The GC usually runs aside our program, and will slow it down due to the limited computer resources.</p>
-<p>In Rust, the third approach, if we obey the rules of ownership and make the program compiled, <strong>none of the features of ownership will slow down your program while it’s running, and you won't gain any both potential bugs and unreleased unused memory.</strong></p>
+<p>Genearally, In the first approach, it’s our responsibility to
+identify when memory is no longer being used and call code to explicitly
+free it, just as we did to request it. Doing this correctly has
+historically been a difficult programming problem. <strong>If we forget,
+we’ll waste memory. If we do it too early, we’ll have an invalid
+variable. If we do it twice, that’s a bug too. We need to pair exactly
+one allocate with exactly one free.</strong></p>
+<p>In the second approach, we do not need to think about the memory
+stuff, just keep creating the variables in the heap, and the Garbage
+Collector (GC) will help us to cleans up the memory that isn’t being
+used anymore. The GC usually runs aside our program, and will slow it
+down due to the limited computer resources.</p>
+<p>In Rust, the third approach, if we obey the rules of ownership and
+make the program compiled, <strong>none of the features of ownership
+will slow down your program while it’s running, and you won’t gain any
+both potential bugs and unreleased unused memory.</strong></p>
+<h4 id="the-ownership-rules">The Ownership Rules</h4>
+<ol type="1">
+<li><strong>Each value in Rust has an owner.</strong></li>
+<li><strong>There can only be one owner at a time.</strong></li>
+<li>When the owner goes out of scope, the value will be dropped
+automatically</li>
+</ol>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s1 <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s2 <span class="op">=</span> s1<span class="op">;</span>                   <span class="co">// s2 now own the value of s1</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}, world!&quot;</span><span class="op">,</span> s1)<span class="op">;</span>    <span class="co">// compile error</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the value is being &quot;moved&quot; from s1 to s2</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the s1 has been invalidated</span></span></code></pre></div>
+<p>If you’ve heard the terms <em>shallow copy</em> and <em>deep
+copy</em> while working with other languages, the concept of copying the
+pointer, length, and capacity without copying the data probably sounds
+like making a shallow copy. But because Rust also <strong>invalidates
+the first variable, instead of calling it a shallow copy, it’s known as
+a move</strong>. In this example, we would say that
+<strong><code>s1</code></strong> was moved into
+<strong><code>s2</code></strong>. So what actually happens is shown in
+the following Figure.</p>
+<figure>
+<img src="Sources/ownership.png" alt="ownership" />
+<figcaption aria-hidden="true">ownership</figcaption>
+</figure>
+<h4 id="why-do-we-need-ownership">Why do we need Ownership?</h4>
+<p>One of the purpose of the ownership rule is to solve some problems
+that we usually encounter in Type #1 language like C and C++:
+<strong>The Double Free Error</strong></p>
+<p>When a variable goes out of scope, <strong>Rust automatically calls
+the drop function and cleans up the heap memory for that
+variable.</strong> But if both data pointers pointing to the same
+location. This is a problem: when s2 and s1 go out of scope, they will
+both try to free the same memory. This is known as a double free error
+and is one of the memory safety bugs we mentioned previously. Freeing
+memory twice can lead to memory corruption, which can potentially lead
+to security vulnerabilities.</p>
+<h3 id="borrowing">4. Borrowing</h3>
+<p>Sometimes, after calling a function and give the ownership of that
+variable to it, we may stll want to use that variable after the function
+return. (that variable should not be invalidated). The solution is that
+<strong>we can provide a reference to that variable, when we pass that
+reference, there is no ownership transfer</strong>, which means that
+<strong>the function just “borrow” the value of that variable</strong>
+(do not own it).</p>
+<p>A <em>reference</em> is like a pointer in that it’s an address we can
+follow to access the data stored at that address; that data is owned by
+some other variable. Unlike a pointer, <strong>a reference is guaranteed
+to point to a valid value of a particular type for the life of that
+reference</strong>. (the memory should not be dropped.)</p>
+<p>Here is how you would define and use a <code>calculate_length</code>
+function that has a reference to an object as a parameter instead of
+taking ownership of the value:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> s1 <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> len <span class="op">=</span> calculate_length(<span class="op">&amp;</span>s1)<span class="op">;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;The length of &#39;{}&#39; is {}.&quot;</span><span class="op">,</span> s1<span class="op">,</span> len)<span class="op">;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> calculate_length(s<span class="op">:</span> <span class="op">&amp;</span><span class="dt">String</span>) <span class="op">-&gt;</span> <span class="dt">usize</span> <span class="op">{</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>len()</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span> <span class="co">// Here, s goes out of scope. But because it does not have ownership of what</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">// it refers to, it is not dropped.</span></span></code></pre></div>
+<figure>
+<img src="Sources/borrowing.png" alt="borrowing" />
+<figcaption aria-hidden="true">borrowing</figcaption>
+</figure>
+<h4 id="mutable-references">Mutable References</h4>
+<p>Just as variables are immutable by default, so are references. We’re
+not allowed to modify something we have a reference to. But you can also
+create a mutable reference by adding a <code>mut</code> keyword:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    change(<span class="op">&amp;</span><span class="kw">mut</span> s)<span class="op">;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="kw">fn</span> change(some_string<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> <span class="dt">String</span>) <span class="op">{</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    some_string<span class="op">.</span>push_str(<span class="st">&quot;, world&quot;</span>)<span class="op">;</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Mutable references have one big restriction: <strong>if you have a
+mutable reference to a value, you can have no other references to that
+value.</strong> This code that attempts to create two mutable references
+to s will fail.</p>
+<p>The benefit of having this restriction is that Rust can
+<strong>prevent data races at compile time</strong>. A data race is
+similar to a race condition and happens when these three behaviors
+occur:</p>
+<ol type="1">
+<li>Two or more pointers access the same data at the same time.</li>
+<li>At least one of the pointers is being used to write to the
+data.</li>
+<li>There’s no mechanism being used to synchronize access to the
+data.</li>
+</ol>
+<p>Data races cause undefined behavior and can be difficult to diagnose
+and fix when you’re trying to track them down at runtime; Rust prevents
+this problem by refusing to compile code with data races!</p>
+<p>Another restriction of mutable reference is that <strong>We also
+cannot have a mutable reference while we have an immutable one to the
+same value.</strong></p>
+<p>The reason is also relatively simple: Users of an immutable reference
+<strong>don’t expect the value to suddenly change out from under
+them!</strong></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode rust"><code class="sourceCode rust"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> s <span class="op">=</span> <span class="dt">String</span><span class="pp">::</span>from(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r1 <span class="op">=</span> <span class="op">&amp;</span>s<span class="op">;</span> <span class="co">// no problem</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r2 <span class="op">=</span> <span class="op">&amp;</span>s<span class="op">;</span> <span class="co">// no problem</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;{} and {}&quot;</span><span class="op">,</span> r1<span class="op">,</span> r2)<span class="op">;</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// variables r1 and r2 will not be used after this point</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> r3 <span class="op">=</span> <span class="op">&amp;</span><span class="kw">mut</span> s<span class="op">;</span> <span class="co">// no problem</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> r3)<span class="op">;</span></span></code></pre></div>
+<p>The scopes of the immutable references <code>r1</code> and
+<code>r2</code> end after the <code>println!</code> where they are last
+used, which is before the mutable reference <code>r3</code> is created.
+These scopes don’t overlap, so this code is allowed.</p>
 	</section>
 	</div>
     </div>
@@ -270,6 +655,10 @@ this.page.identifier = "bs/2022/03/Rust.html"
    </div>
 </footer>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 <script src="../../../theme/js/bootstrap.min.js"></script>
 
 <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
