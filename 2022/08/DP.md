@@ -58,6 +58,49 @@ Now let's prove this theorem: (only case 1)
 
 ![xyij](Sources/xyij.png)
 
+* **Dynamic Programming Hallmark #1**: **The Optimal Structure:** 
+    * An optimal solution to a problem (instance), contains optimal solutions to subproblems.
+    * There is a optimal substructure going on in the problem.
+    * In LCS example, If $z = LCS(x,y)$ then any prefix of $z$ is a LCS of a prefix of $x$ and a prefix of $y$.
+
+Now let's try to analyze the time complexity of this recursive approach:
+
+Let's say we want to find the LCS of two strings $x$ and $y$, with length $m = 7$, $n = 6$. Then we have the following recursion tree, and assume it is in the worst case, which each recursive subproblem belongs to case 2 (with two subproblems):
+
+![recursive](Sources/recursive.png)
+
+It is not hard to get the height of this recursion tree: $m + n$. Since its is a binary tree, the **time complexity would be $O(2^{m+n})$, which is also exponential!.**
+
+#### (3) The Memoization Approach
+
+The main reason that recursive approach is slow, is that we do a lot of repeated works. As you can see in the tree, all the colored nodes are being calculated more than once. 
+
+![repetition](Sources/repetition.png)
+
+* **Dynamic Programming Hallmark #2**: **Overlapping Subproblems:**
+    * A recursive solution contains a small number of distinct subproblmes, repeated many times.
+    * **In LCS example, for $LCS(m,n)$, actually we only have $m \times n$ distinct subproblems.**
+
+**The Memoization Algorithm:**
+
+```
+LCS(x, y, i, j)
+    if c[i, j] = nil
+        then if x[i] = y[i]
+            then c[i, j] = LCS(x, y, i-1, j-1) + 1
+            else c[i, j] = max{LCS(x, y, i, j-1)
+                               LCS(x, y, i-1, j)}
+    return c[i][j]
+```
+
+* **Time Complexity: $\theta(m \times n)$**
+* **Space Complexity: $\theta(m \times n)$**
+
+### Idea of DP
+
+And that is called **Dynamic Programming**: To compute the table ($C$ here) bottom-up.
+
+Or in other words, **We start with a relatively smaller subproblem, and then using its answer to calculate bigger problem... till we reach the question we actually need to solve.**
 
 ## 1. Dynamic Programming
 We can think Dynamic Programming as kind of **exhausive search**, which is usually a bad thing to do, because it leads to exponential time. But if you do it in a clever way, via dynamic programming, you typically get **polynomial time**.
@@ -66,7 +109,3 @@ We can think Dynamic Programming as kind of **exhausive search**, which is usual
 
 **Dynamic Programming $=$ A Buttom-up approach.**
 
-* **Dynamic Programming Hallmark #1**: **The Optimal Structure:** 
-    * An optimal solution to a problem (instance), contains optimal solutions to subproblems.
-* **Dynamic Programming Hallmark #2**: **Overlapping Subproblems:**
-    * A recursive solution contains a small number of distinct subproblmes, repeated many times.
